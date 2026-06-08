@@ -43,6 +43,9 @@ Contact the DPI team at [governmentapp@gdda.govt.nz](mailto:governmentapp@gdda.g
 
 Once the credential accreditation process is completed, the DPI team will add the IACA and URL of the production service into the trusted issuers list so users of the Govt.nz app can be offered and issued the credential.
 
+> [!IMPORTANT]
+> The IACA for an accredited credential must not be used for issuance of non-accredited credentials. 
+
 ### Development
 
 New Zealand government agencies that provide digital credential must use the All of Government [Digital Credential Issuance Platform (DCIP)](https://github.com/NZ-Digital-Public-Infrastructure/nz-digital-credential-issuance-platform). 
