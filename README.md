@@ -33,7 +33,7 @@ Any New Zealand government agency or other organisation that issues digital cred
 
 ### Trusted issuers
 
-The wallet refers to a trusted issuers list maintained by the DPI team, which contains all the Issuing Authority Certificate Authority certificates (IACAs) used to issue accredited credentials, and the URLs of the credential issuance services. Credentials may be added to the wallet if their URL and IACA are in the list.
+The wallet will accept credentials that are offered by a trusted issuer. A trusted issuers list is maintained by the DPI team, containing all the Issuing Authority Certificate Authority certificates (IACAs) and URLs of accredited credential issuance services. Issuers will securely provide the IACA and URL for their service during the onboarding phase and these will be added to the trusted issuers list once credential accreditation has been approved by the Trust Framework Authority. 
 
 ## Using the Wallet
 
@@ -48,19 +48,17 @@ Once the credential accreditation process is completed, the DPI team will add th
 
 ### Development
 
-New Zealand government agencies that provide digital credential must use the All of Government [Digital Credential Issuance Platform (DCIP)](https://github.com/NZ-Digital-Public-Infrastructure/nz-digital-credential-issuance-platform). 
+New Zealand government agencies that provide digital credential must use the All of Government [Digital Credential Issuance Platform (DCIP)](https://github.com/NZ-Digital-Public-Infrastructure/nz-digital-credential-issuance-platform). The DPI team will configure the sandbox and production wallet trusted issuer details for any agency using the DCIP.
 
-The DPI team will be able to configure the wallet trusted issuer details for any agency using the DCIP.
-
-Other types of organisations using alternative credential systems will need to provide the IACA and URL details to be added to the wallet trusted issuer list.
+Other types of organisations using alternative credential systems will need to provide the IACA and URL details to be added to the wallet trusted issuer list for both sandbox and production wallets. 
 
 ### Testing
 
-A sandbox test tenancy is provided for use during development and testing. This can be used in conjunction with sandbox versions of other DPI products, including the Govt.nz app wallet, and NZ Verify.
+A sandbox version of the Govt.nz app is provided for use during development and testing. This can be used in conjunction with sandbox versions of other DPI products, including the DCIP and NZ Verify.
 
 See our [DPI Sandbox Guide](https://github.com/NZ-Digital-Public-Infrastructure/.github/blob/main/profile/sandbox/Sandbox%20User%20Guide.md) for details of the test products.
 
-The sandbox version of the iOS or Android Govt.nz app can be deployed to the mobile devices of requested users in the issuing organisation for testing the credential.
+The sandbox version of the iOS or Android Govt.nz app can be deployed to the mobile devices of requested users for testing the credential.
 
 ### Costs
 There is no fee for use of the wallet.
