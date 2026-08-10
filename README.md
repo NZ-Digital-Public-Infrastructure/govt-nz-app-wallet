@@ -48,7 +48,9 @@ Once the credential accreditation process is completed, the DPI team will add th
 
 ### Development
 
-New Zealand government agencies that provide digital credential must use the All of Government [Digital Credential Issuance Platform (DCIP)](https://github.com/NZ-Digital-Public-Infrastructure/nz-digital-credential-issuance-platform). The DPI team will configure the sandbox and production wallet trusted issuer details for any agency using the DCIP.
+See our [Govt.nz app wallet technical guide](/Govt.nz%20app%20wallet%20technical%20guide.md) for technical requirements for credentials in the wallet.
+
+New Zealand government agencies that provide digital credentials must use the All of Government [Digital Credential Issuance Platform (DCIP)](https://github.com/NZ-Digital-Public-Infrastructure/nz-digital-credential-issuance-platform). The DPI team will configure the sandbox and production wallet trusted issuer details for any agency using the DCIP.
 
 Other types of organisations using alternative credential systems will need to provide the IACA and URL details to be added to the wallet trusted issuer list for both sandbox and production wallets. 
 
