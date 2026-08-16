@@ -1,6 +1,7 @@
 # Govt.nz App Wallet Technical Guide
 This page describes technical details and configuration requirements organisations issuing credentials into the [Govt.nz app wallet](/README.md).
 
+* [User experience](#user-experience)
 * [Credential requirements](#credential-requirements)
   * [Status list distribution](#status-list-distribution)
   * [Status list requirements](#status-list-requirements)
@@ -13,6 +14,9 @@ This page describes technical details and configuration requirements organisatio
 
 ## Background
 The wallet uses the [MATTR Pi mDocs Holder SDK](https://learn.mattr.global/docs/holding/sdk-overview) within the [Govt.nz app](https://www.govt.nz/about/the-govt-nz-app/). 
+
+## User experience
+Examples of the wallet appearance for users during all phases of credential management, including issuance, presentation, and viewing credentials and usage history, are shown in the [Govt.nz wallet credential flows](/Govt.nz%20wallet%20-%20credential%20flows.pdf) document. 
 
 ## Credential requirements
 The wallet is based on the [ISO/IEC 18013-5](https://www.iso.org/standard/69084.html) standard, including aspects of the draft second edition. It accepts mDoc format credentials.
@@ -55,7 +59,9 @@ For example, a sandbox credential offer would start with:
     https://sandbox.m.app.govt.nz/openid-credential-offer?credential_offer=%7B%22credential_issuer… 
 
 ## Credential presentation
-The wallet supports in-person presentation, e.g. to point-of-sale terminals or verifying apps, and online presentation following the [OpenID for Verifiable Presentations](https://openid.net/specs/openid-4-verifiable-presentations-1_0.html) standard, and [ISO/IEC 18013-7:2025](https://www.iso.org/standard/91154.html).
+The wallet supports in-person presentation, e.g. to point-of-sale terminals or verifying apps, and online presentation following [ISO/IEC 18013-7:2025 Annex B](https://www.iso.org/standard/91154.html), which profiles [OpenID for Verifiable Presentations (OpenID4VP) Draft 18](https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID2.html).
+
+Support for the [Digital Credentials API (DC API)](https://w3c-fedid.github.io/digital-credentials/) will be added by the end of 2026. In a presentation using the DC API, the wallet will support [OpenID4VP v1.0](https://openid.net/specs/openid-4-verifiable-presentations-1_0.html).
 
 When a verification request is initiated, the wallet will select a credential that matches the request document type and that contains all requested claims. If there are multiple matching credentials, the most recent is selected by default and the wallet holder may choose to switch to another credential for presentation.
 
