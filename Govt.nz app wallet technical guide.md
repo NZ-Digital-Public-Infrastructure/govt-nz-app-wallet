@@ -5,12 +5,12 @@ This page describes technical details and configuration requirements organisatio
 * [Credential requirements](#credential-requirements)
   * [Status list distribution](#status-list-distribution)
   * [Status list requirements](#status-list-requirements)
-  * [Optional credential claims](#optional-credential-claims)
   * [Deep links for issuance](#deep-links-for-issuance)
 * [Credential presentation](#credential-presentation)
   * [In-person presentation](#in-person-presentation)
+  * [Credential matching](#credential-matching)
   * [Deep links for presentation](#deep-links-for-presentation)
-  * [References](#references)
+* [References](#references)
 
 ## Background
 The wallet uses the [MATTR Pi mDocs Holder SDK](https://learn.mattr.global/docs/holding/sdk-overview) within the [Govt.nz app](https://www.govt.nz/about/the-govt-nz-app/). 
@@ -38,9 +38,6 @@ Status List Tokens must be encoded in CBOR Web Token (CWT) format and meet all t
 
 The CWT shall contain the `x5chain` in the protected header that contains the certificate or chain of certificates used to verify the signature of the revocation status list.
 
-### Optional credential claims
-During a verification request, the wallet will select a credential for presentation where there is an exact match on all requested claim labels. A credential that omits an optional claim label, for example where that claim is not applicable to the holder, will not be returned in response to a request for that claim. Credentials should be issued with all defined claim labels present, using blank or null values for non-applicable optional claims, rather than omitting those claims entirely.
-
 ### Deep links for issuance
 The wallet is registered with the `openid-credential-offer://` URL scheme for maximum interoperability, allowing the device holder to select the Govt.nz app wallet during credential issuance.
 
@@ -59,17 +56,33 @@ For example, a sandbox credential offer would start with:
     https://sandbox.m.app.govt.nz/openid-credential-offer?credential_offer=%7B%22credential_issuer… 
 
 ## Credential presentation
-The wallet supports in-person presentation, e.g. to point-of-sale terminals or verifying apps, and online presentation following [ISO/IEC 18013-7:2025 Annex B](https://www.iso.org/standard/91154.html), which profiles [OpenID for Verifiable Presentations (OpenID4VP) Draft 18](https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID2.html).
+The wallet supports in-person and online presentation using the standards listed below. Developers of credential verification products should refer to the compatibility documentation to ensure interoperability with the wallet.
 
-Support for the [Digital Credentials API (DC API)](https://w3c-fedid.github.io/digital-credentials/) will be added by the end of 2026. In a presentation using the DC API, the wallet will support [OpenID4VP v1.0](https://openid.net/specs/openid-4-verifiable-presentations-1_0.html).
+| Method        | Standard    | Compatibility  |
+| ------------- | ------------- | ----- |
+| In-person (proximity verification)  |  [ISO/IEC 18013-5](https://www.iso.org/standard/69084.html) | [ISO 18013-5 feature support](https://learn.mattr.global/docs/holding/iso-18013-5-feature-support) |
+| Online (redirect flow)     | [ISO/IEC 18013-7:2025 Annex B](https://www.iso.org/standard/91154.html) profiling [OpenID for Verifiable Presentations (OpenID4VP) Draft 18](https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID2.html)    |   [OID4VP support](https://learn.mattr.global/docs/holding/oid4vp-feature-support)|
+| Online (DC API) | [Digital Credentials API](https://w3c-fedid.github.io/digital-credentials/)      |    [DC API support](https://learn.mattr.global/docs/holding/oid4vp-feature-support#digital-credentials-api) |
 
-When a verification request is initiated, the wallet will select a credential that matches the request document type and that contains all requested claims. If there are multiple matching credentials, the most recent is selected by default and the wallet holder may choose to switch to another credential for presentation.
-
-The app displays the selected credential to the wallet holder, along with the claims that are requested to be shared, and shows which claims the verifier has indicated will be retained. The user must approve the sharing of the credential by using 3D facial recognition or fingerprint scanning, as managed by the device. Using the device's PIN or password as a fallback authentication method is not permitted. 
 
 ### In-person presentation
 
 Device engagement during in-person verification can be initiated through scanning a QR code presented in the wallet iOS and Android versions, or through NFC engagement on Android devices. Device retrieval transport is through BLE, with the wallet in `mDoc peripheral server mode`. 
+
+### Credential matching
+When the wallet finds a credential that matches all aspects of a verification request, the app displays the selected credential to the wallet holder along with the claims that are requested to be shared. It will also show which claims the verifier has indicated will be retained. The user must approve the sharing of the credential by using 3D facial recognition or fingerprint scanning, as managed by the device. Using the device's PIN or password as a fallback authentication method is not permitted.
+
+If there are multiple matching credentials, the one most recently issued is selected by default and the wallet holder may choose to switch to another applicable credential for presentation.
+
+#### Optional credential claims
+When a verification request is initiated, the wallet will select a credential that matches the request document type and that contains **all** requested claims.
+
+Issuers should include every claim defined in the credential schema, even when an optional claim has no applicable value for the holder. In those cases, set the claim to a null or empty value rather than leaving it out.
+
+If an optional claim is missing, the credential will not be matched to a verification request that includes that claim.
+
+#### Requests for presentation of multiple document types
+If a verification request asks for multiple credential documents, the wallet will only return a successful match if it holds **all** of the requested credential types and claims. This behaviour is intended to be changed in early 2027, with the wallet then returning a single credential that matches one of the requested types. For example, this will allow a verifier to request a mobile driver licence and photo ID and get a matching response if the user holds either one of those types.
 
 ### Deep links for presentation
 
