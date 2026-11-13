@@ -1,5 +1,5 @@
 # Govt.nz App Wallet Technical Guide
-This page describes technical details and configuration requirements organisations issuing credentials into the [Govt.nz app wallet](/README.md).
+This page describes technical details and configuration requirements for organisations issuing credentials into the [Govt.nz app wallet](/README.md) or verifying credentials from the wallet.
 
 * [User experience](#user-experience)
 * [Credential requirements](#credential-requirements)
